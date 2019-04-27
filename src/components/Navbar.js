@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import {Consumer} from '../context'
+import axios from 'axios'
+//material-ui
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,6 +12,7 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+
 
 const styles = theme => ({
   root: {
@@ -74,36 +78,68 @@ const styles = theme => ({
 });
 
  class Navbar extends Component {
+   state ={
+     searchTitle:''
+   }
+
+   onChange = (e) => {
+    this.setState({
+        [e.target.name]:e.target.value
+    })
+}
+findSearch = (dispatch,e) =>{
+  e.preventDefault();
+  axios.get(`https://api.themoviedb.org/3/search/multi?api_key=${process.env.REACT_APP_MM_KEY}&language=en-US&query=${this.state.searchTitle}&page=1&include_adult=false`)
+   .then(res=>{
+      dispatch({
+          type:'SEARCH_RESULTS',
+          payload:res.data.results
+      })
+  })
+}
   render() {
     const { classes } = this.props;
     return (
-      <React.Fragment>
-             <div className={classes.root}>
-      <AppBar position="fixed" className={classes.appBackground}>
-        <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-            <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-            Material-UI
-          </Typography>
-          <div className={classes.grow} />
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-            />
-          </div>
-        </Toolbar>
-      </AppBar>
-    </div>
+  <Consumer>
+    {value =>{
+       const {dispatch } = value
+              return(
+                <React.Fragment>
+                      <div className={classes.root}>
+                <AppBar position="fixed" className={classes.appBackground}>
+                  <Toolbar>
+                    <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
+                      <MenuIcon />
+                    </IconButton>
+                    <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+                      Material-UI
+                    </Typography>
+                    <div className={classes.grow} />
+                    <div className={classes.search}>
+                      <div className={classes.searchIcon}>
+                        <SearchIcon />
+                      </div>
+                      <form onSubmit={this.findSearch.bind(this,dispatch)}>
+                          <InputBase
+                            placeholder="Search…"
+                            name="searchTitle"
+                            value={this.state.searchTitle}
+                            onChange={this.onChange}
+                            classes={{
+                              root: classes.inputRoot,
+                              input: classes.inputInput,
+                            }}
+                          />
+                      </form>
+                    </div>
+                  </Toolbar>
+                </AppBar>
+              </div>
       </React.Fragment>
+              )
+    }}
+  </Consumer>
+
     )
   }
 }

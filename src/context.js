@@ -3,10 +3,26 @@ import axios from 'axios'
 
 const Context = React.createContext()
 
+const reducer = (state,action) => {
+    switch(action.type){
+        case 'SEARCH_RESULTS':
+            return {
+                ...state,
+                tvSerials:action.payload,
+                heading:'Search Results'
+            }
+            default:
+                return state;
+    }
+}
+
+
+
 export class Provider extends Component {
     state = {
         tvSerials:[],
-        heading:'Top TV Serials'
+        heading:'Top TV Serials',
+        dispatch: action => this.setState(state => reducer(state,action))
     }
     componentDidMount(){
         axios.get(`https://api.themoviedb.org/3/tv/popular?api_key=${process.env.REACT_APP_MM_KEY}&language=en-US&page=1`)
