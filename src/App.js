@@ -6,6 +6,7 @@ import {Provider} from './context'
 import Navbar from './components/Navbar'
 import Home from './layout/Home'
 
+
 function App() {
   return (
     <Provider>
@@ -14,6 +15,8 @@ function App() {
             <Navbar />
             <Switch>
             <Route exact path="/" component={Home} />
+            
+
             </Switch>
           </div>
       </Router>

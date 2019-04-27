@@ -1,5 +1,7 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid';
+import Spinner from '../../assets/loading.gif'
+
 //Material-ui
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -10,6 +12,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Chip from '@material-ui/core/Chip';
 
 
 const styles = {
@@ -19,17 +22,24 @@ const styles = {
   media: {
     height: 140,
   },
+
 };
+const cardOff = {
+  maxWidth: 545,
+ 
+}
 
 const CardComponent = ({tvSerials,heading} ) =>{
   
   // const { classes } = props;
-  console.log(tvSerials)
-  console.log(heading)
+  // console.log(tvSerials)
+  // console.log(heading)
   
   return (
     <React.Fragment>
-      <h1>{heading}</h1>
+                      <Chip 
+                      color="primary"
+                      label={heading} style={{margin:20}}/>
             <Grid 
             container
             direction="row"
@@ -38,21 +48,26 @@ const CardComponent = ({tvSerials,heading} ) =>{
             spacing={16}
             > 
                 {tvSerials && tvSerials.map(serial => {
+                  if(serial.poster_path === null) {
+                    return (null)
+                  }else{
                       return(
                       <Grid item key={serial.id} xs={3}  style={{margin:20}}>
-                        <Card  style={ {maxWidth: 545}}>
+                        <Card  style={cardOff}>
                         <CardActionArea>
-                            <CardMedia
-                            style={{height: 440,}}
-                            image={`https://image.tmdb.org/t/p/original/${serial.poster_path}`}
-                            title="Contemplative Reptile"
-                            />
+                          
+                              <CardMedia 
+                              style={{height: 440}}
+                              image={`https://image.tmdb.org/t/p/original/${serial.poster_path}`}
+                              title="Contemplative Reptile"
+                              />
+                            
                             <CardContent>
                             <Typography gutterBottom variant="h5" component="h2">
                                 {serial.name}
                             </Typography>
                             <Typography component="p">
-                            {serial.overview}
+                            {serial.overview.slice(0,180)}
                             </Typography>
                             </CardContent>
                         </CardActionArea>
@@ -67,6 +82,7 @@ const CardComponent = ({tvSerials,heading} ) =>{
                         </Card>
                         </Grid>
                       )
+                      }
                 })}
                 </Grid>
       </React.Fragment>  

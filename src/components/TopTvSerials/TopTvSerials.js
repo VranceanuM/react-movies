@@ -17,7 +17,7 @@ class TopTvSerials extends Component {
                 }
                 else{
                     return (
-                        <Card 
+                      <Card 
                         tvSerials={tvSerials}
                         heading={heading}
                         />

@@ -99,44 +99,43 @@ findSearch = (dispatch,e) =>{
 }
   render() {
     const { classes } = this.props;
+
     return (
   <Consumer>
-    {value =>{
-       const {dispatch } = value
-              return(
-                <React.Fragment>
-                      <div className={classes.root}>
-                <AppBar position="fixed" className={classes.appBackground}>
-                  <Toolbar>
-                    <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-                      <MenuIcon />
-                    </IconButton>
-                    <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                      Material-UI
-                    </Typography>
-                    <div className={classes.grow} />
-                    <div className={classes.search}>
-                      <div className={classes.searchIcon}>
-                        <SearchIcon />
-                      </div>
-                      <form onSubmit={this.findSearch.bind(this,dispatch)}>
-                          <InputBase
-                            placeholder="Search…"
-                            name="searchTitle"
-                            value={this.state.searchTitle}
-                            onChange={this.onChange}
-                            classes={{
-                              root: classes.inputRoot,
-                              input: classes.inputInput,
-                            }}
-                          />
-                      </form>
-                    </div>
-                  </Toolbar>
-                </AppBar>
-              </div>
-      </React.Fragment>
-              )
+    {value => {
+        const {dispatch} = value
+        return(
+                  <div className={classes.root}>
+            <AppBar position="fixed" className={classes.appBackground}>
+              <Toolbar>
+                <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
+                  <MenuIcon />
+                </IconButton>
+                <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+                  Material-UI
+                </Typography>
+                <div className={classes.grow} />
+                <div className={classes.search}>
+                  <div className={classes.searchIcon}>
+                    <SearchIcon />
+                  </div>
+                  <form onSubmit={this.findSearch.bind(this,dispatch)}>
+                      <InputBase
+                        placeholder="Searchh…"
+                        name="searchTitle"
+                        value={this.state.searchTitle}
+                        onChange={this.onChange}
+                        classes={{
+                          root: classes.inputRoot,
+                          input: classes.inputInput,
+                        }}
+                      />
+                  </form>
+                </div>
+              </Toolbar>
+            </AppBar>
+          </div>
+        )
     }}
   </Consumer>
 
