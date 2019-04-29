@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import axios from 'axios'
 import TopTvSerials from '../components/TopTvSerials/TopTvSerials'
+import TopRatedMovies from '../components/TopRatedMovies/TopRatedMovies';
 
 
 const styles = theme =>({
@@ -23,7 +24,7 @@ class Home extends Component {
     }
 
     componentDidMount(){
-        axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_MM_KEY}&language=en-US&page=1`)
+        axios.get(`https://api.themoviedb.org/3/tv/airing_today?api_key=${process.env.REACT_APP_MM_KEY}&language=en-US&page=1`)
             .then(res => {
                 this.setState({
                     favMovies:res.data.results 
@@ -37,9 +38,9 @@ class Home extends Component {
 
     return (
             <React.Fragment>
-
                     <Carusel favMovies={favMovies}/>
                     <TopTvSerials/>
+                    <TopRatedMovies />
             </React.Fragment>   
             
     )

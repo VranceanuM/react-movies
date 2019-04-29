@@ -25,7 +25,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import Chip from '@material-ui/core/Chip';
 
 
-const drawerWidth = 240;
+const drawerWidth = 400;
 const styles = theme => ({
   root: {
     width: '100%',
@@ -109,13 +109,22 @@ const styles = theme => ({
 }
 findSearch = (dispatch,e) =>{
   e.preventDefault();
-  axios.get(`https://api.themoviedb.org/3/search/multi?api_key=${process.env.REACT_APP_MM_KEY}&language=en-US&query=${this.state.searchTitle}&page=1&include_adult=false`)
+  axios.get(`https://api.themoviedb.org/3/search/tv?api_key=${process.env.REACT_APP_MM_KEY}&language=en-US&query=${this.state.searchTitle}&page=1&include_adult=false`)
    .then(res=>{
       dispatch({
           type:'SEARCH_RESULTS',
           payload:res.data.results
       })
   })
+  return (
+    axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_MM_KEY}&language=en-US&query=${this.state.searchTitle}&page=1&include_adult=false`)
+    .then(res=>{
+       dispatch({
+           type:'SEARCH_RESULTS_MOVIE',
+           payload:res.data.results
+       })
+   })
+  )
 }
   render() {
     const { classes } = this.props;
@@ -141,7 +150,7 @@ findSearch = (dispatch,e) =>{
                   </div>
                   <form onSubmit={this.findSearch.bind(this,dispatch)}>
                       <InputBase
-                        placeholder="Searchh…"
+                        placeholder="Search…"
                         name="searchTitle"
                         value={this.state.searchTitle}
                         onChange={this.onChange}
@@ -159,6 +168,7 @@ findSearch = (dispatch,e) =>{
         variant="permanent"
         classes={{
           paper: classes.drawerPaper,
+          
         }}
       >
         <div className={classes.toolbar} />

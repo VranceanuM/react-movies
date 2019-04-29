@@ -17,7 +17,7 @@ const  Carusel =({favMovies}) =>{
         >
     {favMovies && favMovies.map(movie => {
         return(
-            <img key={movie.id} src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}  alt={movie.original_title} data-action="http://andyyou.github.io/react-coverflow/" style={{ display: 'block', width: '100%'}}/>
+            <img key={movie.id} src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}  alt="On the air today" data-action="http://andyyou.github.io/react-coverflow/" style={{ display: 'block', width: '100%'}}/>
             )
     })}
     

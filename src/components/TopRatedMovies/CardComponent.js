@@ -1,7 +1,5 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid';
-import Spinner from '../../assets/loading.gif'
-
 //Material-ui
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -28,38 +26,33 @@ const cardOff = {
   maxWidth: 345,
  
 }
-
-const CardComponent = ({tvSerials,heading} ) =>{
-  
-  // const { classes } = props;
-  // console.log(tvSerials)
-  // console.log(heading)
-  
-  return (
-    <React.Fragment>
-                      <Chip 
-                      color="primary"
-                      label={heading} style={{marginLeft:110,marginTop:40,marginBottom:40}}/>
-            <Grid 
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-            > 
-                {tvSerials && tvSerials.map(serial => {
-                  if(serial.poster_path === null) {
+const CardComponent = ({headingTopMovies,topRatedMovies}) => {
+    console.log(topRatedMovies)
+    return (
+        <React.Fragment>
+        <Chip 
+        color="primary"
+        label={headingTopMovies} style={{marginLeft:110,marginTop:40,marginBottom:40}}/>
+                <Grid 
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
+                > 
+                {topRatedMovies && topRatedMovies.map(serial => {
+                    if(serial.poster_path === null) {
                     return (null)
-                  }else{
-                      return(
-                      <Grid item key={serial.id} md={4} lg={3}  style={{marginLeft:5,marginBottom:30,paddingLeft:90}}>
+                    }else{
+                        return(
+                        <Grid item key={serial.id} md={4} lg={3}  style={{marginLeft:5,marginBottom:30,paddingLeft:90}}>
                         <Card  style={cardOff}>
                         <CardActionArea>
-                          
-                              <CardMedia 
-                              style={{height: 440}}
-                              image={`https://image.tmdb.org/t/p/original/${serial.poster_path}`}
-                              title="Contemplative Reptile"
-                              />
+                            
+                                <CardMedia 
+                                style={{height: 440}}
+                                image={`https://image.tmdb.org/t/p/original/${serial.poster_path}`}
+                                title="Contemplative Reptile"
+                                />
                             
                             <CardContent>
                             <Typography gutterBottom variant="h5" component="h2">
@@ -80,16 +73,15 @@ const CardComponent = ({tvSerials,heading} ) =>{
                         </CardActions>
                         </Card>
                         </Grid>
-                      )
-                      }
+                        )
+                        }
                 })}
                 </Grid>
-      </React.Fragment>  
-      )
+        </React.Fragment>  
+  )
 }
 CardComponent.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(CardComponent);
-
+    classes: PropTypes.object.isRequired,
+  };
+  
+  export default withStyles(styles)(CardComponent);
