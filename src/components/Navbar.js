@@ -13,11 +13,30 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
+import Drawer from '@material-ui/core/Drawer';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
+import Chip from '@material-ui/core/Chip';
 
+
+const drawerWidth = 240;
 const styles = theme => ({
   root: {
     width: '100%',
   },
+  
+
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+
   grow: {
     flexGrow: 1,
   },
@@ -59,6 +78,7 @@ const styles = theme => ({
     width: '100%',
   },
   appBackground:{
+    zIndex: theme.zIndex.drawer + 1,
     background: 'linear-gradient(45deg, #FE6B8B 30%, #58aeef 90%)'
   },
   inputInput: {
@@ -134,6 +154,38 @@ findSearch = (dispatch,e) =>{
                 </div>
               </Toolbar>
             </AppBar>
+            <Drawer
+        className={classes.drawer}
+        variant="permanent"
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.toolbar} />
+        <List style = {{marginTop:220}}>
+        <Chip color="secondary"
+        label="Movies" style={{marginBottom:10}} />
+          {['Latest', 'Trending', 'Now Playing'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+        <Chip color="primary"
+        label="TV Serials" style={{marginBottom:10}} />
+          {['Latest', 'Popular', 'On The Air'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+      <main className={classes.content}></main>
+
           </div>
         )
     }}

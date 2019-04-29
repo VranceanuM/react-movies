@@ -4,11 +4,18 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import axios from 'axios'
 import TopTvSerials from '../components/TopTvSerials/TopTvSerials'
+
+
 const styles = theme =>({
     sizeTop:{
         marginTop:230
-    }
+    },
+    content: {
+        flexGrow: 1,
+        padding: theme.spacing.unit * 3,
+      }
 })
+
 class Home extends Component {
 
     state = {
@@ -30,6 +37,7 @@ class Home extends Component {
 
     return (
             <React.Fragment>
+
                     <Carusel favMovies={favMovies}/>
                     <TopTvSerials/>
             </React.Fragment>   

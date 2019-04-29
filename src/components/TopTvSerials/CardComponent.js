@@ -39,20 +39,20 @@ const CardComponent = ({tvSerials,heading} ) =>{
     <React.Fragment>
                       <Chip 
                       color="primary"
-                      label={heading} style={{margin:20}}/>
+                      label={heading} style={{marginLeft:110,marginTop:40,marginBottom:40}}/>
             <Grid 
             container
             direction="row"
             justify="center"
             alignItems="center"
-            spacing={16}
+            spacing={2}
             > 
                 {tvSerials && tvSerials.map(serial => {
                   if(serial.poster_path === null) {
                     return (null)
                   }else{
                       return(
-                      <Grid item key={serial.id} xs={3}  style={{margin:20}}>
+                      <Grid item key={serial.id} xs={3}  style={{marginLeft:130,marginBottom:30}}>
                         <Card  style={cardOff}>
                         <CardActionArea>
                           
